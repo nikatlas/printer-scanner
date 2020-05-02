@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+
+body {
+  background-color: #282c34;
+}
+
+.main-container {
+  height: 100vh;
+  justify-content: center;
+  flex: 1;
+  align-items: center;
+  display: flex;
+  overflow-y: scroll;
+}
+
+.logo-container img {
+  padding: 24px;
+}
+
+.search-container {
+  padding:48px;
+}

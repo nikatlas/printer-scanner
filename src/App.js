@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route
+} from "react-router-dom";
+
+import { Grid, Container, Card, Box } from '@material-ui/core';
+
+import Pages from './pages';
+
+import { SearchBox } from './components';
+
 import './App.css';
+
+
+// console.log("ALL", All);
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    	<div className="main-container">
+    		<Container>
+		    	<Card>
+					<Route path="/" exact component={Pages.Home}/>
+			      	<Route path="/printer/:id/:name" exact component={Pages.Printer}/>
+			      	<Route path="/toner/:id/:name" exact component={Pages.Toner}/>
+			    </Card>
+		    </Container>
+	    </div>
+    </Router>
   );
 }
 
