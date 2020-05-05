@@ -21,7 +21,7 @@ export default function (props) {
 
 	let fullname = (item.brand && item.brand.name) + " " + item.model;
 	return (
-	  	<Box p={2} style={{backgroundColor: 'rgb(233, 235, 238, 0.3)'}}>
+	  	<Box p={2} style={{backgroundColor: '#f5f5f5'}}>
 	  		<Grid container direction="row" justify="space-around" align="center" style={{borderBottom:'1px solid', paddingBottom:48}}>
 		  		<Grid item xs={12} md={6} justify="space-around">
 		  			<Card style={{width: 332}}>
