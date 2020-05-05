@@ -21,12 +21,14 @@ function App() {
     <Router>
     	<div className="main-container">
     		<Container>
-		    	<Card>
-					<Route path="/" exact component={Pages.Home}/>
-			      	<Route path="/printer/:id/:name" exact component={Pages.Printer}/>
-			      	<Route path="/toner/:id/:name" exact component={Pages.Toner}/>
-			    </Card>
-		    </Container>
+          <Grid item>
+  		    	<Card>
+  					    <Route path="/" exact component={Pages.Home}/>
+  			      	<Route path="/printer/:id/:name" exact component={Pages.Printer}/>
+  			      	<Route path="/toner/:id/:name" exact component={Pages.Toner}/>
+  			    </Card>
+  		    </Grid>
+        </Container>
 	    </div>
     </Router>
   );

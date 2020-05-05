@@ -22,46 +22,47 @@ const useStyles = makeStyles((theme) => ({
 export default (function(props) {
 	const [term, setTerm] = React.useState('');
 	const [brand, setBrand] = React.useState('');
+	const [item, setItem] = React.useState(undefined);
 	const [brandOptions, setBrandOptions] = React.useState([]);
 	const [termOptions, setTermOptions] = React.useState([]);
 	const classes = useStyles();
 
 	const lookupBrand = async function(b) {
-		let brands = await strapi.get("brands", {'name_contains': b});
+		let brands = await strapi.get("brands", {'name_contains': b, _limit: 7});
 		setBrand(b);
 		setBrandOptions(brands);
 	}
 	
 	const lookup = async function(code) {
-		let printers = await strapi.get("printers", {'brand.name_contains': brand, model_contains: code});
+		let printers = await strapi.get("printers", {'brand.name_contains': brand, model_contains: code, _limit: 7});
 		setTerm(code);
 		setTermOptions(printers);
 	}
-	console.log(brand, term);
+	// console.log(brand, term, item);
 	return (
 		<Grid container direction="row" className = {classes.root}>
       		<Autocomplete
 			  id="brand-term"
 			  options={brandOptions}
 			  getOptionLabel={(option) => option.name}
-			  style={{ width: 300 }}
-			  onChange={(e, v) => v && setBrand(v.name) && v}
+			  style={{minWidth: 180}}
+			  onChange={(e, v) => v && setBrand(v.name)}
 			  renderInput={(params) => <TextField {...params} label="Μάρκα Εκτυπωτή" placeholder="HP, Lexmark, Samsung..." variant="outlined" value={brand} onChange={(v) => lookupBrand(v.target.value)}/>}
 			/>
 			<Autocomplete
 			  id="search-term"
 			  options={termOptions}
 			  getOptionLabel={(option) => option.model}
-			  style={{ width: 400 }}
-			  onChange={(e, v) => v && setTerm(v.model) && v}
+			  style={{minWidth: 180}}
+			  onChange={(e, v) => v && (setTerm(v.model) || setItem(v))}
 			  renderInput={(params) => <TextField {...params} label="Κωδικός Εκτυπωτή" variant="outlined" value={term} onChange={(v) => lookup(v.target.value)}/>}
 			/>
       		<Button 
-      	onClick={() => props.onSearch(brand,term)}
-        variant="contained"
-        color="primary"
-        startIcon={<SearchIcon/>}>
-      			Βρες το
+	      	onClick={() => props.onSearch(brand, term, item)}
+	        variant="contained"
+	        color="primary"
+	        startIcon={<SearchIcon/>}>
+	      		Βρες το
       		</Button>
 		</Grid>
 	);

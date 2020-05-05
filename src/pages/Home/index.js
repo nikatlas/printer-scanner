@@ -18,17 +18,17 @@ const strapi = new StrapiClient(BASE_URL);
 
 
 
-export default function () {
-	const lookup = async function(brand, code) {
-		let printers = await strapi.get("printers", {'brand.name_contains': brand, model_contains: code});
-		console.log(printers);
+export default function (props) {
+	const lookup = async function(brand, code, item) {
+		// let printers = await strapi.get("printers", {'brand.name_contains': brand, model_contains: code});
+		// console.log(brand, code, item);
+		props.history.push("/printer/"+item.id+"/"+item.brand.name + "-" + item.model.replace(' ', '-'));
 	}
 
-  return (
-  	<div>
+  	return (
 		<Grid container justify="center" alignItems="center" direction="column">
 			<Box className="logo-container">
-				<img src={'/logo.png'} />
+				<img src={'/logo.png'} style={{ maxWidth: 250 }} alt="Tonersales - Logo"/>
 			</Box>
 			<Box className="logo-container" align='center'>
 				<h1><strong>TONERSALES</strong></h1>
@@ -36,9 +36,8 @@ export default function () {
 				<small>Σημείωσε τη μάρκα και το μοντέλο του εκτυπωτή σου</small>  
 			</Box>
 			<Box className="search-container">
-				<SearchBox onSearch={(brand, code) => lookup(brand, code)}/>
+				<SearchBox onSearch={(brand, code, item) => lookup(brand, code, item)}/>
 			</Box>
 		</Grid>
-  	</div>
-  );
+	);
 }
