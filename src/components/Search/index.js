@@ -36,12 +36,29 @@ export default (function(props) {
 	const lookup = async function(code) {
 		let printers = await strapi.get("printers", {'brand.name_contains': brand, model_contains: code, _limit: 7});
 		setTerm(code);
+		setItem(undefined);
 		setTermOptions(printers);
+	}
+
+	const runPost = async function() {
+		if(!item) {
+			if(!term) {
+				props.onFail(brand, term);
+			} else {
+				let res = await strapi.get("printers",  {'brand.name_contains': brand, model_contains: term, _limit: 1})
+				res.length ? props.onSearch(brand, term, res[0]) : props.onFail(brand, term);
+			}
+		} else {
+			props.onSearch(brand, term, item);
+		}
 	}
 	// console.log(brand, term, item);
 	return (
 		<Grid container direction="row" className = {classes.root}>
       		<Autocomplete
+			autoComplete
+			autoHighlight
+			freeSolo
 			  id="brand-term"
 			  options={brandOptions}
 			  getOptionLabel={(option) => option.name}
@@ -50,6 +67,9 @@ export default (function(props) {
 			  renderInput={(params) => <TextField {...params} label="Μάρκα Εκτυπωτή" placeholder="HP, Lexmark, Samsung..." variant="outlined" value={brand} onChange={(v) => lookupBrand(v.target.value)}/>}
 			/>
 			<Autocomplete
+			autoComplete
+			autoHighlight
+			freeSolo
 			  id="search-term"
 			  options={termOptions}
 			  getOptionLabel={(option) => option.model}
@@ -58,7 +78,7 @@ export default (function(props) {
 			  renderInput={(params) => <TextField {...params} label="Κωδικός Εκτυπωτή" variant="outlined" value={term} onChange={(v) => lookup(v.target.value)}/>}
 			/>
       		<Button 
-	      	onClick={() => props.onSearch(brand, term, item)}
+	      	onClick={() => runPost()}
 	        variant="contained"
 	        color="primary"
 	        startIcon={<SearchIcon/>}>
