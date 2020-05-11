@@ -2,30 +2,56 @@ import React from 'react';
 import { Grid, Button, Box, Card, CardContent, CardMedia, CardActions, Typography } from '@material-ui/core';
 import ReactGA from 'react-ga';
 
+import { withRouter } from 'react-router-dom';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 import StrapiClient from 'strapi-client';
+
 const BASE_URL = "https://printers.tonersales.eu";
 const strapi = new StrapiClient(BASE_URL);
 
+const buyEvent = (model) => {
+	ReactGA.event({
+	  category: 'Buy',
+	  action: 'Toner buy clicked',
+	  label: model
+	});
+}
 
-
-export default function (props) {
+export default withRouter(function (props) {
 	let id = props.match.params.id || undefined;
 	let [item, setItem] = React.useState({toners: []});
+	
+	let fullname = (item.brand && item.brand.name + " ")  + item.model;
 
-	async function fetchIt() {
+	async function fetchIt(id) {
 	    let res = await strapi.get("printers", {id});
 	    setItem(res[0]);
 	}
-	React.useEffect(() => {
-		fetchIt();
-	}, [item.id]);
+	React.useEffect((id) => {
+		fetchIt(id);
+	}, [id]);
 	// console.log(item);
 
-	let fullname = (item.brand && item.brand.name) + " " + item.model;
+	const goBack = () => {
+		ReactGA.event({
+		  category: 'NotFound',
+		  action: 'Go Back',
+		  label: fullname || id
+		});
+		props.history.goBack();
+	}
 	return (
 	  	<Box p={2} style={{backgroundColor: '#f5f5f5'}}>
+
 	  		<Grid container justify="space-between">
 		  		<Grid item xs={12} md={4} lg={3} align="center">
+			  		<Grid container item xs={12} justify="center" onClick={() => goBack()}>
+			  			<ArrowBackIcon /> 
+				  		<Typography variant="body1">
+			  				Πίσω στην αναζήτηση
+						</Typography>
+			  		</Grid>
 			  		<Grid item xs={12}>
 			  			<Box p={2}>
 				  			<Card>
@@ -33,7 +59,7 @@ export default function (props) {
 				  			</Card>
 			  			</Box>
 			  		</Grid>
-			  		<Grid item xs={12} alignItems="center">
+			  		<Grid container item xs={12} alignItems="center">
 			  			{item.description && <div>
 			  				<Typography variant="h5">
 			  					Εκτυπωτής {fullname}
@@ -42,7 +68,7 @@ export default function (props) {
 			  			<p>{item.description}</p>
 			  		</Grid>
 			  	</Grid>
-		  		<Grid item xs={12} md={8} lg={9} align="left" style={{border: 0, borderLeft:1, borderColor: '#282c34', borderStyle: 'solid'}}>
+		  		<Grid item xs={12} md={8} lg={9} align="left" className="br-md-plus">
 		  			<Box pt={2}>
 		  				<Typography gutterBottom variant="h6" align="center">
 							Αναλώσιμα για τον εκτυπωτή {fullname}
@@ -65,7 +91,7 @@ export default function (props) {
 							        	</Typography>
 							      	</CardContent>
 							      	<CardActions>
-								        <a href={toner.link} target="_new" style={{textDecoration:'none'}}>
+								        <a href={toner.link} target="_new" style={{textDecoration:'none'}} onClick={() => buyEvent(toner.model)}>
 								        	<Button variant="contained" color="primary">Αγορά</Button>
 								        </a>
 									</CardActions>
@@ -79,4 +105,4 @@ export default function (props) {
 	  		</Grid>
 	  	</Box>
   	);
-}
+})

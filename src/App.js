@@ -4,7 +4,7 @@ import {
   Route,
   useHistory
 } from "react-router-dom";
-import { Grid, Box, Container, Card } from '@material-ui/core';
+import { Grid, Container, Card } from '@material-ui/core';
 import Pages from './pages';
 import './App.css';
 
@@ -31,12 +31,10 @@ function App() {
   	<div className="main-container">
   		<Container style={{margin: 'auto'}} disableGutters={true}>
         <Grid item>
-		    	<Card>
-            <Box p={1}>
-					    <Route path="/" exact component={Pages.Home}/>
-			      	<Route path="/printer/:id/:name" exact component={Pages.Printer}/>
-			      	<Route path="/toner/:id/:name" exact component={Pages.Toner}/>
-            </Box>
+  	    	<Card>
+				    <Route path="/" exact component={Pages.Home}/>
+		      	<Route path="/printer/:id/:name" exact component={Pages.Printer}/>
+		      	<Route path="/toner/:id/:name" exact component={Pages.Toner}/>
 			    </Card>
 		    </Grid>
       </Container>

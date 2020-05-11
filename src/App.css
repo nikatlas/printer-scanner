@@ -50,7 +50,7 @@ body {
   display: flex;
   padding-top: 16px;
 }
-@media(max-width: 600px) {
+@media(max-width: 599px) {
   .main-container {
     padding-top: 0;
   }
@@ -63,4 +63,12 @@ body {
 .search-container {
   padding: 8px;
   align-self: stretch;
+}
+.br-md-plus {
+  border: 0;
+  border-left:1px #282c34 solid;
+}
+
+@media(max-width: 959px) {
+  .br-md-plus { border: 0; }
 }
