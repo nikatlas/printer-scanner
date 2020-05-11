@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactGA from 'react-ga';
 
-import { Grid, Box, Modal, Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
+import { Grid, Box, Container, Modal, Typography, Card, CardContent, CardActions, Button } from '@material-ui/core';
 import {SearchBox} from '../../components'; 
 
 
@@ -37,7 +37,9 @@ export default function (props) {
 				<small>Σημείωσε τη μάρκα και το μοντέλο του εκτυπωτή σου</small>  
 			</Box>
 			<Box className="search-container">
-				<SearchBox onSearch={(brand, code, item) => lookup(brand, code, item)} onFail={(brand, code) => openModal(brand, code)}/>
+				<Container maxWidth="md">
+					<SearchBox onSearch={(brand, code, item) => lookup(brand, code, item)} onFail={(brand, code) => openModal(brand, code)}/>
+				</Container>
 			</Box>
 
 

@@ -12,8 +12,8 @@ const strapi = new StrapiClient(BASE_URL);
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
-      margin: theme.spacing(2),
+    '& > * ': {
+      padding: theme.spacing(2),
     },
   },
 }));
@@ -55,35 +55,53 @@ export default (function(props) {
 	// console.log(brand, term, item);
 	return (
 		<Grid container direction="row" className = {classes.root}>
-      		<Autocomplete
-			autoComplete
-			autoHighlight
-			freeSolo
-			  id="brand-term"
-			  options={brandOptions}
-			  getOptionLabel={(option) => option.name}
-			  style={{minWidth: 180}}
-			  onChange={(e, v) => v && setBrand(v.name)}
-			  renderInput={(params) => <TextField {...params} label="Μάρκα Εκτυπωτή" placeholder="HP, Lexmark, Samsung..." variant="outlined" value={brand} onChange={(v) => lookupBrand(v.target.value)}/>}
-			/>
-			<Autocomplete
-			autoComplete
-			autoHighlight
-			freeSolo
-			  id="search-term"
-			  options={termOptions}
-			  getOptionLabel={(option) => option.model}
-			  style={{minWidth: 180}}
-			  onChange={(e, v) => v && (setTerm(v.model) || setItem(v))}
-			  renderInput={(params) => <TextField {...params} label="Κωδικός Εκτυπωτή" variant="outlined" value={term} onChange={(v) => lookup(v.target.value)}/>}
-			/>
-      		<Button 
-	      	onClick={() => runPost()}
-	        variant="contained"
-	        color="primary"
-	        startIcon={<SearchIcon/>}>
-	      		Βρες το
-      		</Button>
+      		<Grid item
+      		xs={12}
+      		sm={12}
+      		md={6}
+      		lg={4}>
+	      		<Autocomplete
+				autoComplete
+				autoHighlight
+				freeSolo
+				  id="brand-term"
+				  options={brandOptions}
+				  getOptionLabel={(option) => option.name}
+				  style={{width: '100%'}}
+				  onChange={(e, v) => v && setBrand(v.name)}
+				  renderInput={(params) => <TextField {...params} label="Μάρκα Εκτυπωτή" placeholder="HP, Lexmark, Samsung..." variant="outlined" value={brand} onChange={(v) => lookupBrand(v.target.value)}/>}
+				/>
+      		</Grid>
+			<Grid item
+      		xs={12}
+      		sm={12}
+      		md={6}
+      		lg={5}>
+	      		<Autocomplete
+				autoComplete
+				autoHighlight
+				freeSolo
+				  id="search-term"
+				  options={termOptions}
+				  getOptionLabel={(option) => option.model}
+				  style={{width: '100%'}}
+				  onChange={(e, v) => v && (setTerm(v.model) || setItem(v))}
+				  renderInput={(params) => <TextField {...params} label="Κωδικός Εκτυπωτή" variant="outlined" value={term} onChange={(v) => lookup(v.target.value)}/>}
+				/>
+      		</Grid>
+      		<Grid item
+      		xs={12}
+      		lg={3}>
+	      		<Button 
+	      		size="large"
+	      		style={{height:56, width:'100%'}}
+		      	onClick={() => runPost()}
+		        variant="contained"
+		        color="primary"
+		        startIcon={<SearchIcon/>}>
+		      		Βρες το
+	      		</Button>
+      		</Grid>
 		</Grid>
 	);
 });
