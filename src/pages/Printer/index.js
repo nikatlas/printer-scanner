@@ -42,11 +42,11 @@ export default function (props) {
 		  		</Grid>
 		  	</Grid>
 	  		<Grid item xs={12} align="left">
-	  			<div>
+	  			<Box pt={2}>
 	  				<Typography gutterBottom variant="h6" align="center">
 						Αναλώσιμα για τον εκτυπωτή {fullname}
 					</Typography>
-				</div>
+				</Box>
 	  			<Box xs={12} p={1}>
 	  			<Grid container>
 	  			{item.toners.map((toner) => 
@@ -60,7 +60,7 @@ export default function (props) {
 					        />
 					    	<CardContent style={{minHeight: 60}}>
 					        	<Typography variant="subtitle2">
-					        		{toner.model}
+					        		Toner {toner.model}
 					        	</Typography>
 					      	</CardContent>
 					      	<CardActions>
