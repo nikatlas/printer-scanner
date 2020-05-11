@@ -46,7 +46,7 @@ export default withRouter(function (props) {
 
 	  		<Grid container justify="space-between">
 		  		<Grid item xs={12} md={4} lg={3} align="center">
-			  		<Grid container item xs={12} justify="center" onClick={() => goBack()}>
+			  		<Grid container item xs={12} justify="center" onClick={() => goBack()} style={{cursor: 'pointer'}}>
 			  			<ArrowBackIcon /> 
 				  		<Typography variant="body1">
 			  				Πίσω στην αναζήτηση
