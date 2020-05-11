@@ -25,19 +25,19 @@ export default function (props) {
 	return (
 	  	<Box p={2} style={{backgroundColor: '#f5f5f5'}}>
 	  		<Grid container direction="row" justify="space-around" align="center" style={{borderBottom:'1px solid', paddingBottom:48, minHeight: 310}}>
-		  		<Grid item xs={12} md={6}>
-		  			<Card style={{width: 332}}>
-		  				<Box p={2}>
-		  					<img src={item.image} alt={'Image - ' + fullname} style={{ maxWidth : 300 }}/>
-		  				</Box>
-		  			</Card>
+		  		<Grid item xs={12} sm={6} md={4} lg={3}>
+		  			<Box p={2}>
+			  			<Card>
+			  				<img src={item.image} alt={'Image - ' + fullname} style={{ maxHeight: 500, maxWidth: 250 }}/>
+			  			</Card>
+		  			</Box>
 		  		</Grid>
-		  		<Grid item xs={12} md={6} align="left">
-		  			<div>
-		  				<Typography gutterBottom variant="h5">
+		  		<Grid item xs={12} md={6} alignItems="center">
+		  			{item.description && <div>
+		  				<Typography variant="h5">
 		  					Εκτυπωτής {fullname}
 						</Typography>
-		  			</div>
+		  			</div>}
 		  			<p>{item.description}</p>
 		  		</Grid>
 		  	</Grid>
@@ -47,9 +47,11 @@ export default function (props) {
 						Αναλώσιμα για τον εκτυπωτή {fullname}
 					</Typography>
 				</div>
-	  			<Box xs={12} p={10}>
+	  			<Box xs={12} p={1}>
+	  			<Grid container>
 	  			{item.toners.map((toner) => 
-	  				<Grid item xs={12} sm={6} md={4} key={toner.id}>
+	  				<Grid item xs={12} sm={6} md={3} key={toner.id}>
+	  				<Box m={1}>
 		  				<Card>
 		  					<CardMedia
 		  					  style={{height: 140}}
@@ -57,7 +59,7 @@ export default function (props) {
 					          title={toner.model}
 					        />
 					    	<CardContent style={{minHeight: 60}}>
-					        	<Typography variant="h5" component="h2">
+					        	<Typography variant="subtitle2">
 					        		{toner.model}
 					        	</Typography>
 					      	</CardContent>
@@ -67,8 +69,10 @@ export default function (props) {
 						        </a>
 							</CardActions>
 					    </Card>
+				    </Box>
 				    </Grid>
 	  			)}
+	  			</Grid>
 	  			</Box>
 	  		</Grid>
 	  	</Box>

@@ -29,7 +29,7 @@ function App() {
 
   return (
   	<div className="main-container">
-  		<Container>
+  		<Container style={{margin: 'auto'}} disableGutters={true}>
         <Grid item>
 		    	<Card>
 					    <Route path="/" exact component={Pages.Home}/>

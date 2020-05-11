@@ -48,8 +48,14 @@ body {
   flex: 1;
   align-items: center;
   display: flex;
-  overflow-y: scroll;
+  padding: 16px 0;
 }
+@media(max-width: 600px) {
+/*  .main-container {
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+*/}
 
 .logo-container img {
   padding: 24px;
