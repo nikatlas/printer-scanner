@@ -18,19 +18,21 @@ const buyEvent = (model) => {
 	});
 }
 
+
 export default withRouter(function (props) {
 	let id = props.match.params.id || undefined;
-	let [item, setItem] = React.useState({toners: []});
+	let [item, setItem] = React.useState({id, toners: []});
 	
 	let fullname = (item.brand && item.brand.name + " ")  + item.model;
 
-	async function fetchIt(id) {
-	    let res = await strapi.get("printers", {id});
-	    setItem(res[0]);
-	}
-	React.useEffect((id) => {
-		fetchIt(id);
-	}, [id]);
+	React.useEffect(() => {
+		const fetchIt = async(id) => {
+		    let res = await strapi.get("printers", {id});
+		    if(res[0]) 
+		    	setItem(res[0]);
+		};
+		item.id && fetchIt(item.id);
+	}, [item.id]);
 	// console.log(item);
 
 	const goBack = () => {
