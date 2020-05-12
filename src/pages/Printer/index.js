@@ -93,9 +93,9 @@ export default withRouter(function (props) {
 							        	</Typography>
 							      	</CardContent>
 							      	<CardActions>
-								        <a href={toner.link} target="_new" style={{textDecoration:'none'}} onClick={() => buyEvent(toner.model)}>
+								        {toner.link ? <a href={toner.link} target="_new" style={{textDecoration:'none'}} onClick={() => buyEvent(toner.model)}>
 								        	<Button variant="contained" color="primary">Αγορά</Button>
-								        </a>
+								        </a> : <Button variant="contained" color="secondary" disabled>Μη διαθέσιμο</Button>}
 									</CardActions>
 							    </Card>
 						    </Box>
